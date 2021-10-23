@@ -2,19 +2,47 @@
 @section('content')
 <div class="content">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-
-                <div class="card-body p-0">
-                    @if(session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                        <div id="rails-map"></div>
+{{--        Pois/things/mEvents/Users--}}
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa-fw fas fa-map-marker-alt"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Points of Interest</span>
+                    <span class="info-box-number">{{$totalPois}}</span>
                 </div>
             </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa-fw fas fa-microchip"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Things</span>
+                    <span class="info-box-number">{{$totalThings}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa-fw fas fa-wrench"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Maintenance Events</span>
+                    <span class="info-box-number">{{$totalmEvents}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa-fw fas fa-users"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Users</span>
+                    <span class="info-box-number">{{$totalUsers}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="rails-map"></div>
         </div>
     </div>
 </div>
@@ -62,7 +90,8 @@
             attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>, Style: <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA 2.0</a> <a href="http://www.openrailwaymap.org/">OpenRailwayMap</a> and OpenStreetMap',
             minZoom: 2,
             maxZoom: 19,
-            tileSize: 256
+            tileSize: 256,
+
         }).addTo(mymap);
 
     // Load KMZ Files
@@ -70,7 +99,7 @@
     kmz.on('load', function(e) {
         L.control.addOverlay(e.layer, e.name);
     });
-
+    gateways.setOpacity(0.5)
     @for($i=1;$i<=50;$i++)
         kmz.load('{{ asset('kmz/HATA-KMZ-'.$i.'.kmz') }}')
     @endfor
