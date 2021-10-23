@@ -99,7 +99,7 @@
     kmz.on('load', function(e) {
         L.control.addOverlay(e.layer, e.name);
     });
-    gateways.setOpacity(0.5)
+
     @for($i=1;$i<=50;$i++)
         kmz.load('{{ asset('kmz/HATA-KMZ-'.$i.'.kmz') }}')
     @endfor

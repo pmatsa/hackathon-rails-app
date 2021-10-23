@@ -35,6 +35,9 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
                 </li>
             </ul>
+            <select class="searchable-field form-control">
+
+            </select>
 
             <!-- Right navbar links -->
             @if(count(config('panel.available_languages', [])) > 1)
