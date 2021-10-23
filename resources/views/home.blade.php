@@ -4,11 +4,8 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
-                    Dashboard
-                </div>
 
-                <div class="card-body">
+                <div class="card-body p-0">
                     @if(session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -69,47 +66,37 @@
         }).addTo(mymap);
 
     // Load KMZ Files
-    {{--var kmz = L.kmzLayer().addTo(gateways);--}}
-    {{--kmz.on('load', function(e) {--}}
-    {{--    L.control.addOverlay(e.layer, e.name);--}}
-    {{--});--}}
+    var kmz = L.kmzLayer().addTo(gateways);
+    kmz.on('load', function(e) {
+        L.control.addOverlay(e.layer, e.name);
+    });
 
-    {{--@for($i=1;$i<=50;$i++)--}}
-    {{--    kmz.load('{{ asset('kmz/HATA-KMZ-'.$i.'.kmz') }}')--}}
-    {{--@endfor--}}
+    @for($i=1;$i<=50;$i++)
+        kmz.load('{{ asset('kmz/HATA-KMZ-'.$i.'.kmz') }}')
+    @endfor
 
     let event_locations =   [
+        @foreach ($mEvents as $mEvent)
         {
-            "l_title": "Location 1",
+            "l_title": "{{$mEvent->name}}",
             "l_subtitle": "",
-            "l_description": "<ul>\r\n<li>Rruga Siri kodra No 149, 1001 Tirana, Albania</li>\r\n<li>00355 42450250</li>\r\n<li>www.pegasus-united.com</li>\r\n</ul>",
-            "l_coox": "39.601111",
-            "l_cooy": "22.394167"
+            "l_description": "",
+            "l_coox": "{{$mEvent->latitude}}",
+            "l_cooy": "{{$mEvent->longitude}}",
         },
-        {
-            "l_title": "Location 2",
-            "l_subtitle": "",
-            "l_description": "<ul>\r\n<li>Bahnhofstrasse 22, 9242 Oberuzwil, Switzerland</li>\r\n<li>0041 71 952 27 00</li>\r\n<li>www.innovahealth.ch</li>\r\n</ul>",
-            "l_coox": "38.203333",
-            "l_cooy": "23.851944"
-        }
+        @endforeach
     ]
 
     let points_of_interest_locations =   [
+        @foreach ($pois as $poi)
         {
-            "l_title": "Location 3",
+            "l_title": "{{$poi->name}}",
             "l_subtitle": "",
-            "l_description": "<ul>\r\n<li>Rruga Siri kodra No 149, 1001 Tirana, Albania</li>\r\n<li>00355 42450250</li>\r\n<li>www.pegasus-united.com</li>\r\n</ul>",
-            "l_coox": "37.961111",
-            "l_cooy": "23.6625"
+            "l_description": "",
+            "l_coox": "{{$poi->latitude}}",
+            "l_cooy": "{{$poi->longitude}}",
         },
-        {
-            "l_title": "Location 4",
-            "l_subtitle": "",
-            "l_description": "<ul>\r\n<li>Bahnhofstrasse 22, 9242 Oberuzwil, Switzerland</li>\r\n<li>0041 71 952 27 00</li>\r\n<li>www.innovahealth.ch</li>\r\n</ul>",
-            "l_coox": "40.262778",
-            "l_cooy": "22.530278"
-        }
+        @endforeach
     ]
 
     // Events Locations

@@ -9,6 +9,11 @@
 #rails-map{
     height:800px
 }
+.aws-logo{
+    max-width:150px!important;
+    margin: 0 auto;
+
+}
 .ck-editor__editable,
 textarea {
     min-height: 150px;

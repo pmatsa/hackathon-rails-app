@@ -96,4 +96,11 @@ class MaintenanceEvent extends Model implements HasMedia
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public function scopenoPoi($query)
+    {
+
+        return $query->where('poi_id', '=', null);
+
+    }
 }

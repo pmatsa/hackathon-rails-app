@@ -75,5 +75,6 @@
         </div>
         <!-- /.login-card-body -->
     </div>
+    <img class="aws-logo" src="{{ asset('images/aws-logo.png') }}"/>
 </div>
 @endsection
