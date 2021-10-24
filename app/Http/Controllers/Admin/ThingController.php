@@ -8,12 +8,11 @@ use App\Http\Requests\StoreThingRequest;
 use App\Http\Requests\UpdateThingRequest;
 use App\Models\SensorType;
 use App\Models\Thing;
-use Aws\DynamoDb\DynamoDbClient;
+use BaoPham\DynamoDb\Facades\DynamoDb;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
-use BaoPham\DynamoDb\Facades\DynamoDb;
 
 class ThingController extends Controller
 {
@@ -35,12 +34,12 @@ class ThingController extends Controller
                 $crudRoutePart = 'things';
 
                 return view('partials.datatablesActions', compact(
-                'viewGate',
-                'editGate',
-                'deleteGate',
-                'crudRoutePart',
-                'row'
-            ));
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
             });
 
             $table->editColumn('id', function ($row) {
@@ -106,25 +105,6 @@ class ThingController extends Controller
         abort_if(Gate::denies('thing_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $thing->load('type');
-
-        $thing_dynamo_query = DynamoDb::table('thingpark-data')
-            ->setIndexName('DevEUI')
-            ->setKeyConditionExpression('#name = :name')
-            ->setProjectionExpression('id, author_name')
-            // Can set the attribute mapping one by one instead
-            ->setExpressionAttributeName('#name', 'author_name')
-            ->setExpressionAttributeValue(':name', DynamoDb::marshalValue('Bao'))
-            ->prepare()
-            ->query();
-
-        $thing_dynamo_query = DynamoDb::table('thingpark-data')
-            ->setKeyConditionExpression('#DevEUI = :DevEUI')
-            ->setExpressionAttributeNames('#DevEUI')
-            ->setExpressionAttributeValue(':DevEUI', DynamoDb::marshalValue($thing->eui))
-            ->prepare()
-            ->query();
-
-        dd($thing_dynamo_query);
 
         return view('admin.things.show', compact('thing'));
     }

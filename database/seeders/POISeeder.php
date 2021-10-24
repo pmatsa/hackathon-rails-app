@@ -15,12 +15,12 @@ class POISeeder extends Seeder
     public function run()
     {
         $pois = [
-          [
-              'name' => 'Λιανοκλάδι #1',
-              'latitude' => '38.893078905462374',
-              'longitude' => '22.37091150423377',
-              'description' => 'Σημείο στο λιανοκλάδι #1'
-          ],
+            [
+                'name' => 'Λιανοκλάδι #1',
+                'latitude' => '38.893078905462374',
+                'longitude' => '22.37091150423377',
+                'description' => 'Σημείο στο λιανοκλάδι #1'
+            ],
             [
                 'name' => 'Λιανοκλάδι #2',
                 'latitude' => '38.872093824023835',

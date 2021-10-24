@@ -25,7 +25,7 @@ class ThingTypesSeeder extends Seeder
                 'name' => 'Adeunis LoRa Field Test Device'
             ],
             [
-                'name' => 'Sodaq Hackathon Test Device'
+                'name' => 'Hackathon Device'
             ],
         ];
 

@@ -12,6 +12,7 @@
         "aws/aws-sdk-php": "^3.199",
         "baopham/dynamodb": "^6.1",
         "bugsnag/bugsnag-laravel": "^2.21",
+        "consoletvs/charts": "7.*",
         "doctrine/dbal": "^3.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
