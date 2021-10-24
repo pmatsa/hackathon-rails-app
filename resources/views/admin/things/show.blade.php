@@ -59,7 +59,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <i class="fas fa-fw fa-thermometer-quarter"></i>
+                        <i class="fas fa-fw fa-wave-square"></i>
                         Vibration Chart
                     </div>
                 </div>
