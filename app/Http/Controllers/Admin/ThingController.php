@@ -8,10 +8,12 @@ use App\Http\Requests\StoreThingRequest;
 use App\Http\Requests\UpdateThingRequest;
 use App\Models\SensorType;
 use App\Models\Thing;
+use Aws\DynamoDb\DynamoDbClient;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
+use BaoPham\DynamoDb\Facades\DynamoDb;
 
 class ThingController extends Controller
 {
@@ -104,6 +106,15 @@ class ThingController extends Controller
         abort_if(Gate::denies('thing_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $thing->load('type');
+
+        $thing_dynamo_query = DynamoDb::table('thingpark-data')
+            ->setKeyConditionExpression('#DevEUI = :DevEUI')
+            ->setExpressionAttributeNames('#DevEUI')
+            ->setExpressionAttributeValue(':DevEUI', DynamoDb::marshalValue($thing->eui))
+            ->prepare()
+            ->query();
+
+        dd($thing_dynamo_query);
 
         return view('admin.things.show', compact('thing'));
     }

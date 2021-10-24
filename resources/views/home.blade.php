@@ -169,7 +169,7 @@
     });
 
     var overlays = {
-        "LoraWan Gateways": gateways,
+        "LoRaWAN Gateways": gateways,
         "Maintenance Events": events,
         "Point of Interests": points_of_interest
     };

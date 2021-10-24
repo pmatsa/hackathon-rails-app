@@ -16,7 +16,7 @@ class MaintenanceEventTypesSeeder extends Seeder
     {
         $types = [
             [
-                'name' => 'Railway Wear'
+                'name' => 'Rail Defects'
             ],
             [
                 'name' => 'Installation'
