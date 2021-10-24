@@ -108,6 +108,16 @@ class ThingController extends Controller
         $thing->load('type');
 
         $thing_dynamo_query = DynamoDb::table('thingpark-data')
+            ->setIndexName('DevEUI')
+            ->setKeyConditionExpression('#name = :name')
+            ->setProjectionExpression('id, author_name')
+            // Can set the attribute mapping one by one instead
+            ->setExpressionAttributeName('#name', 'author_name')
+            ->setExpressionAttributeValue(':name', DynamoDb::marshalValue('Bao'))
+            ->prepare()
+            ->query();
+
+        $thing_dynamo_query = DynamoDb::table('thingpark-data')
             ->setKeyConditionExpression('#DevEUI = :DevEUI')
             ->setExpressionAttributeNames('#DevEUI')
             ->setExpressionAttributeValue(':DevEUI', DynamoDb::marshalValue($thing->eui))
