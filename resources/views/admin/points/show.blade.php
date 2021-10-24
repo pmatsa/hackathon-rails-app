@@ -1,97 +1,59 @@
 @extends('layouts.admin')
 @section('content')
-
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.point.title') }}
-    </div>
-
-    <div class="card-body">
-        <div class="form-group">
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.points.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-12">
+            <div style="min-height: 318px;" class="card card-widget widget-user-2 shadow-sm">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-warning">
+                    <div class="widget-user-image">
+                        <img class="img-circle elevation-2" src="https://redcase.gr/kmz/sensor.png" alt="">
+                    </div>
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">Point of Interest</h3>
+                    <h5 class="widget-user-desc">{{ $point->name }}</h5>
+                    <span class="info-box-text">{!! $point->description !!}</span>
+                </div>
+                <div class="card-footer p-0">
+                    <ul class="nav flex-column">
+                        @foreach($point->sensors as $key => $sensors)
+                            <li class="nav-item">
+                                <a href="{{ route('admin.things.show', $sensors->id) }}" class="nav-link">
+                                    <i class="fas fa-fw fa-microchip"></i>
+                                    {{ $sensors->eui }}<span
+                                        class="float-right badge bg-secondary">{{ $sensors->type->name }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
-            <table class="table table-bordered table-striped">
-                <tbody>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.point.fields.id') }}
-                        </th>
-                        <td>
-                            {{ $point->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.point.fields.name') }}
-                        </th>
-                        <td>
-                            {{ $point->name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.point.fields.latitude') }}
-                        </th>
-                        <td>
-                            {{ $point->latitude }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.point.fields.longitude') }}
-                        </th>
-                        <td>
-                            {{ $point->longitude }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.point.fields.description') }}
-                        </th>
-                        <td>
-                            {!! $point->description !!}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.point.fields.sensors') }}
-                        </th>
-                        <td>
-                            @foreach($point->sensors as $key => $sensors)
-                                <span class="label label-info">{{ $sensors->eui }}</span>
-                            @endforeach
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.points.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+        </div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div style="height: 318px;" id="poi-map"></div>
             </div>
         </div>
     </div>
-</div>
+    <div class="card">
+        @includeIf('admin.points.relationships.poiMaintenanceEvents', ['maintenanceEvents' => $point->poiMaintenanceEvents])
+    </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#poi_maintenance_events" role="tab" data-toggle="tab">
-                {{ trans('cruds.maintenanceEvent.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="poi_maintenance_events">
-            @includeIf('admin.points.relationships.poiMaintenanceEvents', ['maintenanceEvents' => $point->poiMaintenanceEvents])
-        </div>
-    </div>
-</div>
+@endsection
+
+@section('scripts')
+    @parent
+
+    <script>
+        var map = L.map('poi-map').setView([38.9386255, 22.2306269], 11);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([{{$point->latitude}}, {{$point->longitude}}]).addTo(map)
+            .bindPopup('{!! $point->name !!}')
+            .openPopup();
+    </script>
+
 
 @endsection

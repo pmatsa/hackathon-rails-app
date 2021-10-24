@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ThingTypesSeeder::class,
             MaintenanceEventTypesSeeder::class,
             ThingsSeeder::class,
+            POISeeder::class,
         ]);
     }
 }

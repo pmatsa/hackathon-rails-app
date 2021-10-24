@@ -65,7 +65,7 @@ a.leaflet-control-layers-toggle ,.leaflet-control-layers-expanded.leaflet-contro
     font-weight: 400!important;
 }
 #rails-map{
-    height:800px
+    height:70vh;
 }
 .aws-logo{
     max-width:150px!important;

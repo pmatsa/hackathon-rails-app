@@ -42,7 +42,9 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div id="rails-map"></div>
+            <div class="card">
+                <div id="rails-map"></div>
+            </div>
         </div>
     </div>
 </div>
