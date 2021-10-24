@@ -60,7 +60,7 @@
                 <div class="card-header">
                     <div class="card-title">
                         <i class="fas fa-fw fa-thermometer-quarter"></i>
-                        Deformity Chart
+                        Vibration Chart
                     </div>
                 </div>
                 <div class="card-body">
