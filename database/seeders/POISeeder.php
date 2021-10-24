@@ -27,6 +27,12 @@ class POISeeder extends Seeder
                 'longitude' => '22.419043527594834',
                 'description' => 'Σημείο στο λιανοκλάδι #2'
             ],
+            [
+                'name' => 'Λιανοκλάδι #3',
+                'latitude' => '38.909244696423706',
+                'longitude' => '22.327443881052464',
+                'description' => '<p>Σημείο ενδιαφέροντος Λιανοκλάδι #3</p>'
+            ],
         ];
 
         Point::insert($pois);
